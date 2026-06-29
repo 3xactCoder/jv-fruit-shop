@@ -19,14 +19,19 @@ public class DataConverterImpl implements DataConverter {
             if (line.startsWith(HEADER_FIRST_WORD) || line.isBlank()) {
                 continue;
             }
-            String[] textParts = line.split(CSV_SEPARATOR);
-            String operationCode = textParts[TYPE_INDEX].trim();
-            String fruit = textParts[FRUIT_INDEX].trim();
-            int quantity = Integer.parseInt(textParts[QUANTITY_INDEX].trim());
+            String[] parts = line.split(CSV_SEPARATOR);
+            String operationCode = parts[TYPE_INDEX].trim();
+            String fruit = parts[FRUIT_INDEX].trim();
+
+            int quantity;
+            try {
+                quantity = Integer.parseInt(parts[QUANTITY_INDEX].trim());
+            } catch (NumberFormatException e) {
+                throw new RuntimeException("Invalid quantity format in line: " + line, e);
+            }
 
             if (quantity < 0) {
-                throw new RuntimeException("Quantity cannot be negative for fruit: "
-                        + fruit);
+                throw new RuntimeException("Quantity cannot be negative for fruit: " + fruit);
             }
 
             FruitTransaction.Operation operation = FruitTransaction
@@ -36,4 +41,5 @@ public class DataConverterImpl implements DataConverter {
         return transactions;
     }
 }
+
 

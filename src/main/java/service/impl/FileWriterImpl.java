@@ -1,7 +1,8 @@
-package service;
+package service.impl;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
+import service.FileWriter;
 
 public class FileWriterImpl implements FileWriter {
     @Override
@@ -13,6 +14,9 @@ public class FileWriterImpl implements FileWriter {
         }
     }
 }
+
+
+
 
 
 
