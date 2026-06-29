@@ -37,9 +37,9 @@ public class Main {
         operationHandlers.put(FruitTransaction.Operation.SUPPLY, new SupplyOperation());
         OperationStrategy operationStrategy = new OperationStrategyImpl(operationHandlers);
 
-        List<FruitTransaction> transactions = dataConverter.convertToTransaction(inputReport);
+        List<FruitTransaction> transaction = dataConverter.convertToTransaction(inputReport);
         ShopService shopService = new ShopServiceImpl(operationStrategy);
-        shopService.process(transactions);
+        shopService.process(transaction);
 
         ReportGenerator reportGenerator = new ReportGeneratorImpl();
         String resultingReport = reportGenerator.getReport();
